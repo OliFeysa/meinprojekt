@@ -1,16 +1,137 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EECF Seite</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>St. Marien Kirche - Willkommen</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #1a3c6e;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    nav {
+      background: #0d2b4f;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      width: 80%;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section h2 {
+      color: #1a3c6e;
+      border-bottom: 2px solid #1a3c6e;
+      padding-bottom: 0.5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      background: #1a3c6e;
+      color: white;
+      margin-top: 2rem;
+    }
+    .contact-info {
+      line-height: 1.8;
+    }
+  </style>
 </head>
 <body>
-    <h1>Willkommen auf unserer-Webseite 🎉</h1>
-    <p id="text">Diese Seite wurde direkt mit Code auf GitHub erstellt.</p>
-    <button onclick="changeText()">Klick mich!</button>
 
-    <script src="script.js"></script>
+  <header>
+    <h1>St. Marien Kirche</h1>
+    <p>Ein Ort der Hoffnung, des Glaubens und der Gemeinschaft</p>
+  </header>
+
+  <nav>
+    <a href="#home">Startseite</a>
+    <a href="#gottesdienste">Gottesdienste</a>
+    <a href="#gemeinde">Gemeinde</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+
+  <div class="container" id="home">
+    <div class="section">
+      <h2>Willkommen in unserer Gemeinde</h2>
+      <p>
+        Herzlich willkommen in der evangelischen Kirchengemeinde St. Marien! 
+        Wir freuen uns, dass Sie den Weg zu uns gefunden haben. 
+        Bei uns finden Sie einen Ort der Ruhe, des Gebets und der Gemeinschaft.
+      </p>
+      <p>
+        Egal, ob Sie schon lange dabei sind oder das erste Mal vorbeischauen – 
+        bei uns sind Sie herzlich willkommen!
+      </p>
+    </div>
+
+    <div class="section" id="gottesdienste">
+      <h2>Gottesdienstzeiten</h2>
+      <ul>
+        <li><strong>Sonntag:</strong> 10:00 Uhr – Hauptgottesdienst mit Predigt</li>
+        <li><strong>Mittwoch:</strong> 18:30 Uhr – Abendgebet & Andacht</li>
+        <li><strong>Jeden 1. Sonntag im Monat:</strong> 15:00 Uhr – Familien-Gottesdienst</li>
+      </ul>
+      <p>Alle Gottesdienste finden in der Kirche statt. Kinder sind jederzeit willkommen!</p>
+    </div>
+
+    <div class="section" id="gemeinde">
+      <h2>Unsere Gemeinde</h2>
+      <p>
+        Unsere Gemeinde besteht aus rund 350 Mitgliedern aller Altersgruppen. 
+        Wir treffen uns regelmäßig zu Bibelstunden, Seniorentreffen, 
+        Jugendgruppen und kirchlichen Festen wie Erntedank oder Weihnachten.
+      </p>
+      <p>
+        Wir glauben an einen lebendigen Glauben, der im Miteinander wächst. 
+        Besuchen Sie uns – wir freuen uns auf Sie!
+      </p>
+    </div>
+
+    <div class="section" id="kontakt">
+      <h2>Kontakt</h2>
+      <div class="contact-info">
+        <p><strong>St. Marien Kirche</strong><br>
+        Musterstraße 12<br>
+        12345 Musterstadt</p>
+        <p><strong>Telefon:</strong> 030 / 123 456 78<br>
+        <strong>E-Mail:</strong> info@stmarien-kirche.de</p>
+        <p><strong>Pfarrer:</strong> Pfarrer Thomas Weber</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 St. Marien Kirche. Alle Rechte vorbehalten.</p>
+    <p>Impressum | Datenschutz</p>
+  </footer>
+
 </body>
 </html>
