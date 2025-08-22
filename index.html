@@ -3,161 +3,124 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Evangelisch-Ekumenische Gemeinde Frankfurt</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+  <title>Terminplaner – Äthiopische Evangelische Gemeinde Frankfurt</title>
+
+  <!-- Firebase SDK (Modular) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Firebase-Konfiguration – ersetze mit deinen Daten!
+    const firebaseConfig = {
+       apiKey: "AIzaSyCTkmsRewuqgdSCtAGqc2GOSF3dsdO0Dy4",
+  authDomain: "kirche-termin.firebaseapp.com",
+  projectId: "kirche-termin",
+  storageBucket: "kirche-termin.firebasestorage.app",
+  messagingSenderId: "804607888811",
+  appId: "1:804607888811:web:adc935587685abb1ed56ee",
+  measurementId: "G-5M5XQ9HHPN"
+    };
+
+    // Firebase initialisieren
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Termine aus Firestore laden
+    async function loadEvents() {
+      const eventsContainer = document.getElementById("events-container");
+      eventsContainer.innerHTML = "<p>Lade Termine...</p>";
+
+      try {
+        const querySnapshot = await getDocs(collection(db, "events"));
+        eventsContainer.innerHTML = "";
+
+        if (querySnapshot.empty) {
+          eventsContainer.innerHTML = "<p>Keine Termine vorhanden.</p>";
+          return;
+        }
+
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const eventDiv = document.createElement("div");
+          eventDiv.className = "event-item";
+          eventDiv.innerHTML = `
+            <strong>${data.date} – ${data.title}</strong><br>
+            ${data.description} – ${data.time} Uhr – ${data.location}
+          `;
+          eventsContainer.appendChild(eventDiv);
+        });
+      } catch (error) {
+        console.error("Fehler beim Laden der Termine:", error);
+        eventsContainer.innerHTML = "<p>Fehler beim Laden der Termine.</p>";
+      }
     }
 
+    // Automatisch laden, wenn Seite fertig ist
+    window.addEventListener("DOMContentLoaded", loadEvents);
+  </script>
+
+  <style>
     body {
       font-family: 'Arial', sans-serif;
-      line-height: 1.6;
+      background-color: #f4f4f4;
       color: #333;
-      background-color: #f9f9f9;
-    }
-
-    header {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x600/?church') no-repeat center center/cover;
-      color: white;
-      text-align: center;
-      padding: 100px 20px;
-    }
-
-    header h1 {
-      font-size: 2.8em;
-      margin-bottom: 10px;
-    }
-
-    nav {
-      background-color: #2c3e50;
-      color: white;
-      display: flex;
-      justify-content: center;
-      padding: 15px;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
+      margin: 0;
       padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
       background: white;
+      padding: 30px;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    .section {
-      margin-bottom: 40px;
-    }
-
-    .section h2 {
-      color: #2c3e50;
-      border-bottom: 2px solid #e67e22;
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 3px solid #2c3e50;
       padding-bottom: 10px;
-      margin-bottom: 20px;
     }
-
-    .events {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+    h1 {
+      color: #2c3e50;
+      margin: 0;
     }
-
-    .event-card {
-      flex: 1 1 300px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+    h2 {
+      color: #3498db;
+    }
+    .event-item {
+      background: #f9f9f9;
       padding: 15px;
-      background-color: #f8f9fa;
+      margin-bottom: 12px;
+      border-left: 4px solid #3498db;
+      border-radius: 0 5px 5px 0;
     }
-
-    .event-card h3 {
-      color: #e67e22;
-    }
-
     footer {
       text-align: center;
-      padding: 30px;
-      background-color: #2c3e50;
-      color: white;
       margin-top: 40px;
+      color: #7f8c8d;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Evangelisch-Ekumenische Gemeinde</h1>
-    <p>Frankfurt am Main</p>
-  </header>
+  <div class="container">
+    <header>
+      <h1>Äthiopische Evangelische Gemeinde Frankfurt</h1>
+      <p>Herzlich willkommen zu unserem monatlichen Terminplaner</p>
+    </header>
 
-  <nav>
-    <a href="#home">Start</a>
-    <a href="#ueber-uns">Über uns</a>
-    <a href="#gottesdienste">Gottesdienste</a>
-    <a href="#veranstaltungen">Veranstaltungen</a>
-    <a href="#kontakt">Kontakt</a>
-  </nav>
+    <h2>Kommende Termine</h2>
+    <div id="events-container">
+      <!-- Termine werden hier automatisch geladen -->
+    </div>
 
-  <div class="container" id="home">
-    <section id="ueber-uns" class="section">
-      <h2>Über uns</h2>
-      <p>
-        Die Evangelisch-Ekumenische Gemeinde Frankfurt ist eine offene, lebendige Gemeinschaft, 
-        die Menschen aller Altersgruppen und Hintergründe willkommen heißt. 
-        Wir glauben an eine nachfolgeorientierte, dienende und inklusive Kirche.
-      </p>
-    </section>
-
-    <section id="gottesdienste" class="section">
-      <h2>Gottesdienste</h2>
-      <p>
-        Jeden Sonntag um 10:00 Uhr feiern wir einen gemeinsamen Gottesdienst im Gemeindezentrum. 
-        Der Gottesdienst ist ökumenisch, musikalisch und lädt zum Mitmachen ein.
-      </p>
-    </section>
-
-    <section id="veranstaltungen" class="section">
-      <h2>Veranstaltungen</h2>
-      <div class="events">
-        <div class="event-card">
-          <h3>Gemeindefrühstück</h3>
-          <p><strong>Datum:</strong> 15. April 2025</p>
-          <p><strong>Uhrzeit:</strong> 9:00 - 12:00</p>
-          <p>Komm und triff andere Gemeindemitglieder bei Kaffee und Kuchen.</p>
-        </div>
-        <div class="event-card">
-          <h3>Bibelgesprächskreis</h3>
-          <p><strong>Datum:</strong> Jeden Donnerstag</p>
-          <p><strong>Uhrzeit:</strong> 19:30 - 21:00</p>
-          <p>Offene Runde zum Gespräch über Bibeltexte und Lebensfragen.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="kontakt" class="section">
-      <h2>Kontakt</h2>
-      <p><strong>Adresse:</strong> Musterstraße 123, 60311 Frankfurt</p>
-      <p><strong>Telefon:</strong> +49 69 12345678</p>
-      <p><strong>E-Mail:</strong> <a href="mailto:info@eecfrankfurt.com">info@eecfrankfurt.com</a></p>
-    </section>
+    <footer>
+      Kontakt: info@aege-frankfurt.de | Tel: +49 69 12345678<br>
+      Gemeindehaus: Musterstraße 12, 60300 Frankfurt am Main
+    </footer>
   </div>
-
-  <footer>
-    <p>&copy; 2025 Evangelisch-Ekumenische Gemeinde Frankfurt. Alle Rechte vorbehalten.</p>
-    <p><a href="#" style="color: white;">Impressum</a> | <a href="#" style="color: white;">Datenschutz</a></p>
-  </footer>
 
 </body>
 </html>
